@@ -2456,36 +2456,7 @@
             }
         }
 
-        /* Enhanced Validation Indicators */
-        .step-validation {
-            margin-left: auto;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .step-validation.valid {
-            background: linear-gradient(135deg, var(--success), #20c997);
-            color: white;
-            box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
-        }
-
-        .step-validation.invalid {
-            background: linear-gradient(135deg, var(--danger), #e74c3c);
-            color: white;
-            box-shadow: 0 3px 10px rgba(220, 53, 69, 0.3);
-        }
-
-        .step-validation.incomplete {
-            background: var(--gray-light);
-            color: var(--gray);
-        }
+        
 
         /* Enhanced Loading Animation */
         .loading {
@@ -4468,7 +4439,6 @@
                                 <i class="fas fa-store"></i>
                             </span>
                             Store Info
-                            <span class="step-validation incomplete" data-step="1" aria-label="Step incomplete">!</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -4477,7 +4447,6 @@
                                 <i class="fas fa-server"></i>
                             </span>
                             System
-                            <span class="step-validation incomplete" data-step="2" aria-label="Step incomplete">!</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -4486,7 +4455,6 @@
                                 <i class="fas fa-palette"></i>
                             </span>
                             Styles
-                            <span class="step-validation incomplete" data-step="3" aria-label="Step incomplete">!</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -4495,7 +4463,6 @@
                                 <i class="fas fa-puzzle-piece"></i>
                             </span>
                             Plugins
-                            <span class="step-validation incomplete" data-step="4" aria-label="Step incomplete">!</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -4504,7 +4471,6 @@
                                 <i class="fas fa-database"></i>
                             </span>
                             Sample Data
-                            <span class="step-validation incomplete" data-step="5" aria-label="Step incomplete">!</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -4513,7 +4479,6 @@
                                 <i class="fas fa-clipboard-list"></i>
                             </span>
                             Summary
-                            <span class="step-validation incomplete" data-step="6" aria-label="Step incomplete">!</span>
                         </a>
                     </li>
                 </ul>
@@ -6885,7 +6850,6 @@
                 const maxAccessibleStep = getMaxAccessibleStep();
                 document.querySelectorAll('.nav-link[data-step]').forEach(link => {
                     const step = parseInt(link.dataset.step);
-                    const validation = link.querySelector('.step-validation');
 
                     link.classList.remove('active', 'completed', 'disabled');
                     link.removeAttribute('aria-current');
@@ -6900,24 +6864,6 @@
                         link.setAttribute('aria-disabled', 'true');
                     } else {
                         link.removeAttribute('aria-disabled');
-                    }
-
-                    if (validation) {
-                        validation.classList.remove('valid', 'invalid', 'incomplete');
-                        validation.removeAttribute('aria-label');
-                        if (wizardState.stepValidation[step]) {
-                            validation.classList.add('valid');
-                            validation.textContent = '✓';
-                            validation.setAttribute('aria-label', 'Step complete');
-                        } else if (step < wizardState.currentStep) {
-                            validation.classList.add('invalid');
-                            validation.textContent = '✗';
-                            validation.setAttribute('aria-label', 'Step incomplete');
-                        } else {
-                            validation.classList.add('incomplete');
-                            validation.textContent = '!';
-                            validation.setAttribute('aria-label', 'Step pending');
-                        }
                     }
                 });
 
